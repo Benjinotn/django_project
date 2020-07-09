@@ -1,0 +1,19 @@
+FOR LOOPS:
+
+   {%for x in thing%}
+    <h1> {{post.thingtopost}}</h1>
+   {% endfor %}
+
+CONDITIONALS:
+
+    {%if title%}
+        <title></tile>
+    {% else %}
+
+    {% endif%}
+
+
+BLOCKS:
+
+{% block content %}
+    {% endblock %}

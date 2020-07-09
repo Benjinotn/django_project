@@ -1,0 +1,226 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load index %}
+
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
+
+<!--  <link href="css/modal-minimize-and-maximize/font-awesome.css" rel="stylesheet" type="text/css" />-->
+<!--{% csrf_token %}-->
+
+
+{% if occupied %}
+
+    <ul class="note-board">
+
+        {% for post in post_it_list %}
+            <div class="note">
+                <div class="note-comp">
+                    <img class="pin" src="../../../media/todo/pin.png" alt="Pin">
+                    <div class="expand-button">
+                        <button type="button" class="btn btn-primary btn-lg mdlFire"  data-target="#modal-{{forloop.counter0}}" >expand</button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade mymodal" id="modal-{{forloop.counter0}}" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{ post.noteTitle|title }}</h4>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                                <form action="/finishTodo/" aria-describedby="title-aria" method="post">{% csrf_token %}
+                                    <div class="modal-body">
+                                        <p>Ongoing Tasks</p>
+
+                                        {% for task in task_list|index:forloop.counter0 %}
+                                            {% if not task.task_obj.isDone %}
+                                                <p>
+                                                <div class="check-container">
+                                                    <input type="checkbox" name="popup-box" id="popup-todo-tick{{task.task_obj.id}}" value="{{task.task_obj.id}}">
+                                                    <label for="popup-todo-tick{{task.task_obj.id}}"></label>
+                                                    <span class="tag">{{task.task_obj.TaskTitle}}</span>
+                                                </div>
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                        {% if task_list %}
+                                            <p>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        {% else %}
+                                            you are finished all your tasks!
+                                        {% endif %}
+                                    </div>
+
+
+                                </form>
+
+                                    <div class="modal-body">
+                                        <p>Finished Tasks</p>
+                                        {% for task in task_list|index:forloop.counter0 %}
+                                            {% if task.task_obj.isDone %}
+                                                <p>
+                                                <div class="check-container">
+                                                    <input type="checkbox" name="popup-checked-box" id="popup-todo-tick-finished{{task.task_obj.id}}" value="{{task.task_obj.id}}" checked>
+                                                    <label for="popup-todo-tick-finished{{task.task_obj.id}}"></label>
+                                                    <span class="tag">{{task.task_obj.TaskTitle}}</span>
+                                                    <form action="/deleteTask/" method="post">{% csrf_token %}
+                                                        <button type="submit" class="close" name="task-id-to-delete" value="{{task.task_obj.id}}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    </form>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+
+
+                                <div class="modal-footer">
+                                    <form action="/deleteTodoNote/" method="post">{% csrf_token %}
+                                        <button type="submit" class="btn btn-danger" name="PostItID" value="{{post.id}}">Delete</button>
+                                    </form>
+
+                                </div>
+
+
+                                <form action="/addTask/" aria-describedby="title-aria" method="post">{% csrf_token %}
+                                    <input class="form-control form-control-lg" type="text" name="added-point" placeholder="Enter New Task">
+                                    <button type="submit" class="btn btn-primary" name="post-id" value="{{post.id}}">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="minmaxCon"></div>
+
+                    <div class="note-title">{{ post.noteTitle|title }}</div>
+
+                    <div class="note-content">
+                    {% for task in task_list|index:forloop.counter0 %}
+                        {% if not task.task_obj.isDone %}
+                            <div class="check-container">
+                                <input type="checkbox" name="box" id="todo-tick{{task.task_obj.id}}" value="{{task.task_obj.id}}">
+                                <label for="todo-tick{{task.task_obj.id}}"></label>
+                                <span class="tag">{{task.task_obj.TaskTitle}}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for task in task_list|index:forloop.counter0 %}
+                        {% if task.task_obj.isDone %}
+                            <div class="check-container">
+                                <input type="checkbox" name="checked-box" id="todo-tick-finished{{task.task_obj.id}}" value="{{task.task_obj.id}}" checked>
+                                <label for="todo-tick-finished{{task.task_obj.id}}"></label>
+                                <span class="tag">{{task.task_obj.TaskTitle}}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+        {% endfor %}
+                <!--            <input type="submit" value="Update"/>-->
+
+        <li class="note">
+            <div class="note-comp">
+                <div class="note-content">
+                    <form action="/addTodoNote/" id="title" aria-describedby="title-aria" method="post">{% csrf_token %}
+                    <input class="form-control form-control-lg" type="text" name="PostItTitle"placeholder="Enter NoteTitle">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+{% else %}
+
+        <li class="note">
+            <div class="note-comp">
+                <div class="note-content">
+                    <form action="/addTodoNote/" id="unoccupied-title" aria-describedby="title-aria" method="post">{% csrf_token %}
+                    <input class="form-control form-control-lg" type="text" name="PostItTitle"placeholder="Enter NoteTitle">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+{% endif %}
+
+    <script>
+
+      $(document).ready(function(){
+
+
+          var $content, $modal, $apnData, $modalCon;
+
+          $content = $(".min");
+
+
+          //To fire modal
+          $(".mdlFire").click(function(e){
+
+              e.preventDefault();
+
+              var $id = $(this).attr("data-target");
+
+              $($id).modal({backdrop: false, keyboard: false});
+
+            });
+
+
+          $(".modalMinimize").on("click", function(){
+
+                      $modalCon = $(this).closest(".mymodal").attr("id");
+
+                      $apnData = $(this).closest(".mymodal");
+
+                      $modal = "#" + $modalCon;
+
+                      $(".modal-backdrop").addClass("display-none");
+
+                      $($modal).toggleClass("min");
+
+                        if ( $($modal).hasClass("min") ){
+
+                            $(".minmaxCon").append($apnData);
+
+                            $(this).find("i").toggleClass( 'fa-minus').toggleClass( 'fa-clone');
+
+                          }
+                          else {
+
+                                  $(".container").append($apnData);
+
+                                  $(this).find("i").toggleClass( 'fa-clone').toggleClass( 'fa-minus');
+
+                                };
+
+                      });
+
+            $("button[data-dismiss='modal']").click(function(){
+
+                    $(this).closest(".mymodal").removeClass("min");
+
+                    $(".container").removeClass($apnData);
+
+                    $(this).next('.modalMinimize').find("i").removeClass('fa fa-clone').addClass( 'fa fa-minus');
+
+                  });
+
+      });
+
+    </script>
+
+{% endblock content%}

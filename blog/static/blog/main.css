@@ -1,0 +1,339 @@
+body {
+  background: linear-gradient(to left, #027370,#00918d );
+
+  margin-top: 56px;
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 1rem;
+}
+
+.container {
+    max-width: 1440px;
+
+}
+.row{
+    background: white;
+    padding: 2rem;
+    z-index: -1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #313131;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+  font-weight: 1000;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #eeeeee;
+  padding: 8px 8px;
+  border: 2px dotted #cccccc;
+  border-radius: 3px;
+  margin-bottom: 30px;
+}
+
+.todo-header {
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.article-title {
+  color: #666666;
+  font-weight: 1200;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.list-set {
+  border: 2px dotted #cccccc;
+  padding: 8px 8px;
+  background: #ffffff;
+  border-radius: 3px;
+  margin-bottom: 30px;
+
+
+}
+
+.list-point{
+    list-style-type:none;
+    ite-space: pre-line;
+    text-align: left;
+    padding: 4px 2px;
+}
+
+}
+
+
+.note{
+  list-style:none;
+
+}
+
+.note-board{
+  list-style:none;
+  overflow:hidden;
+  padding:0.8em;
+  background-image: url("../../../media/todo/cork-board.jpg");
+  border-radius: 25px;
+  border: 6px solid #313131;
+
+}
+
+.pin{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  overflow:hidden;
+  width: 20%;
+  padding: 0em;
+
+
+}
+
+
+
+
+
+.note-board .note .note-comp{
+  overflow:hidden;
+  font-size: 20px;
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:19.8em;
+  width:19.8em;
+  padding-top:0.2em;
+    padding-right: 0.8em;
+  /* Firefox */
+  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+  /* Safari+Chrome */
+  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  /* Opera */
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+}
+
+.note-content{
+  padding-left:1em;
+  overflow: hidden;
+
+}
+
+
+
+.note-title{
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: underline;
+  padding-bottom: 0.6em;
+  text-align: center;
+}
+
+.note-board .note{
+  margin:0.8em;
+  float:left;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+input[type="checkbox"]{
+  display:none;
+}
+
+.check-container{
+  display:inline-block;
+  position:relative;
+
+  height:50px;
+}
+
+input[type="checkbox"] + label{
+
+  z-index:15;
+  position:absolute;
+  left:0;
+  top:5px;
+  bottom:10px;
+  right:10px;
+  transition:all 0.3s ease;
+  cursor:pointer;
+  width:20px;
+  border:4px solid #444;
+  height:20px;
+
+}
+
+
+.tag{
+  margin-left:30px;
+
+}
+
+input[type="checkbox"]:checked + label + span{
+  text-decoration:line-through;
+  color: #2ecc7a;
+}
+
+
+
+input[type="checkbox"]:checked + label{
+
+  z-index:15;
+  display:inline-block;
+  transform:rotate(-50deg) translate(5px,-9px);
+  transition:all 0.3s ease;
+  width:25px;
+  border-top-color:transparent;
+   border-right-color:transparent;
+   border-bottom-color:#2ecc71;
+   border-left-color:transparent;
+  height:20px;
+
+
+
+}
+
+input[type="checkbox"]:checked + label:before{
+
+  content:"";
+  position:absolute;
+  right:4px;
+  bottom:-3px;
+  width:100%;
+  height:12px;
+  border-left:4px solid #2ecc7a;
+
+}
+
+
+.min{
+    width: 250px;
+    height: 35px;
+    overflow: hidden !important;
+    padding: 100px !important;
+    margin: 100px;
+
+    float: left;
+    position: static !important;
+  }
+
+.min .modal-dialog, .min .modal-content{
+    height: 100%;
+    width: 100%;
+    margin: 20px !important;
+    padding: 20px !important;
+  }
+
+.modal-title{
+    text-align: center;
+}
+
+.min .modal-header{
+    height: 100%;
+    width: 100%;
+    margin: 0px !important;
+    padding: 3px 5px !important;
+  }
+
+.display-none{display: none;}
+
+.min .menuTab{display: none;}
+
+button:focus { outline: none; }
+
+.minmaxCon{
+  height: 35px;
+  bottom: 1px;
+  left: 1px;
+  position: fixed;
+  right: 1px;
+  z-index: 9999;
+}
+
+.expand-button{
+    float: right;
+    padding-right: 5px;
+}
+
+.carousel-white{
+    color: white;
+}
+
+.carousel-black{
+    color: black;
+}
+
+.help-container{
+    text-align: center;
+    padding-top: 1rem;
+
+}
+
+.help-container .help-title{
+    font-weight: bold;
+    font-size: 30px;
+}
